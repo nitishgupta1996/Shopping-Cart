@@ -1,0 +1,30 @@
+<div class="container" *ngIf="emptyCart != 0">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="margin: 80px auto;">
+                <div class="card-title title">View Order Summary</div>
+                <div class="card-body" *ngFor="let order of orderData">
+                    <hr>
+                    <span>
+            <div class="inner-card" style="display: flex;">
+              <img [src]="order.orderimageUrl" width="25%" height="25%" alt=" Card image cap" class="card imageCard">
+              <div class="card-body">
+                <h2 class="card-title">{{order.orderProductName}}</h2>
+                <h4 class="productPrice">{{order.orderProductPrice | currency: 'INR'}}</h4>
+              </div>
+            </div>
+          </span>
+                </div>
+                <span style="padding: 20px;">
+          <button class="button" (click)="onClearSummary()">Clear Summary</button>
+        </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="emptyCart === 0">
+    <div class="row">
+        <img class="loadingCenter" src="../../assets/empty-cart.png">
+    </div>
+</div>

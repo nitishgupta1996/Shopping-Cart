@@ -1,0 +1,55 @@
+<div class="cart" *ngIf="cartTotal != 0 && !isLoading">
+    <div class="col-md-12" style="margin-bottom: 70px;">
+        <div class="card">
+            <div class="card-body">
+                <div class="headercart">
+                    <h5 class="card-title"></h5>
+                    <h6 class="label">My Cart ({{ cartTotal }})</h6>
+                </div>
+                <hr>
+                <div class="card-body" *ngFor="let item of cartData">
+                    <span class="innercard">
+            <img class="card" [src]="item.cartProductimageUrl" alt=" Card image cap" width="50%">
+            <div class=" card-body">
+              <h5 class="card-title">{{ item.cartProductName }}</h5>
+              <p class="productPrice">&#8377; {{ item.cartfinalProductPrice }}</p>
+            </div>
+          </span>
+                    <div style="margin-bottom: 30px;
+                  display: flex;">
+                        <div class="quantity">
+                            <input type="button" value="+" class="plus" (click)="onIncreaseItem(item.cartId)">
+                            <input type="number" step="1" max="99" min="1" [value]="item.cartProductQuantity" title="Qty" class="qty" size="4">
+                            <input type="button" value="-" class="minus" [disabled]="item.cartProductQuantity == 1" (click)="onDecreaseItem(item.cartId)">
+                        </div>
+                        <div style="float: right;">
+                            <button style="margin-top: 10px; position: absolute;
+                          right: 15%;" type="button" class="btn btn-outline-danger btn-xs" (click)="onRemoveProductsFromCart(item.cartId)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <button class="place-order" (click)="onPlaceOrder()">Place Order </button>
+                <button class="empty-card" style="float: right;" (click)="onRemoveCart()">Empty Cart </button>
+                <hr>
+                <div style="display: inline-flex;">
+                    <div>
+                        <h5 class="nav-link disabled">Total Amount : <strong style="margin-left: 522px;">{{ totalCartValue | currency: 'INR' }}</strong></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="cartTotal === 0 && !isLoading">
+    <div class="row">
+        <img class="loadingCenter" src="../../assets/empty-cart.png">
+    </div>
+</div>
+
+<div class="loadingCenter" *ngIf="isLoading">
+    <app-loader></app-loader>
+</div>

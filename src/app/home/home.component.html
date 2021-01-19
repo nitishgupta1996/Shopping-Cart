@@ -1,0 +1,24 @@
+<div class="container" *ngIf="!isLoading">
+    <div class="row">
+        <div class="col-md-12" style="margin-bottom: 15px;">
+            <input type="text" class="form-control" placeholder="Filter for price, name, category or description" [(ngModel)]="searchField">
+        </div>
+        <div class="col-md-3" *ngFor="let items of productItems | filter: searchField" style="margin-bottom: 40px;">
+            <div class="card mb-4 shadow-sm" style="height: 400px;">
+                <img [src]="items.imageUrl" class="card-img-top" width="100px" height="200px">
+                <div class="card-body">
+                    <h5 class="card-title">{{ items.productName | slice: 0: 15 }}</h5>
+                    <p> &#8377; {{items.productPrice}}</p>
+                    <p class="card-text">{{ items.productDescription | slice: 0: 20 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="add-to-cart" (click)="onAddCart(items)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loadingCenter" *ngIf="isLoading">
+    <app-loader></app-loader>
+</div>
